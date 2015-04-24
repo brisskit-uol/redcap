@@ -1,0 +1,90 @@
+installed mysql 
+
+
+
+# installed apache successfully
+apt-get install -y apache2
+
+#php
+apt-get install -y php5
+apt-get install -y php5-mysql
+apt-get install -y php5-curl
+apt-get install -y php-pear
+apt-get install -y php-auth
+
+pear install DB
+
+#mysql
+apt-get install -y mysql-client
+
+
+############################################
+#Set up apache
+############################################
+
+#Get rid of default config
+rm /etc/apache2/sites-enabled/*
+
+#Put config in the right place
+mv apache_redcap.conf /etc/apache2/sites-available/
+
+#Link to it
+ln -s /etc/apache2/sites-available/apache_redcap.conf /etc/apache2/sites-enabled/apache_redcap.conf
+
+#Restart apache to make the new config take effect
+apache2ctl restart
+# got the following on the restart...
+#AH00112: Warning: DocumentRoot [/var/local/brisskit/redcap/www] does not exist
+#AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 100.92.46.112. Set the 'ServerName' directive globally to suppress this message
+
+# made directory /var/local/brisskit/redcap
+
+############################################
+#Set up the DB
+############################################
+
+#Run the SQL to build the table structure
+#mysql -u ${MYSQL_UN} -p${MYSQL_PW} -h ${MYSQL_IP} ${MYSQL_DB} < redcap_${VERSION_NUMBER}.sql
+#
+# The following seemed to work...
+sudo mysql --user=redcap --password=br1ssk1t123 --host=localhost --database=redcap < redcap_6.4.3.sql
+
+#Place to put all the web files
+sudo mkdir ${ROOT_DIR}redcap/www
+
+#Where redcap install files get moved to after the install
+sudo mkdir ${ROOT_DIR}redcap/www_deleted
+
+#Move the php files
+sudo mv redcap /var/local/brisskit/redcap/www/
+
+#Move our CUSTOM BUILT database.php file
+sudo mv database.php /var/local/brisskit/redcap/www/redcap/database.php
+
+#Make the php database settings file
+echo "<?php" > mysql_settings.php
+echo "//Automatically generated mysql settings" >> mysql_settings.php
+echo "//Made on $(date)" >> mysql_settings.php
+echo "\$hostname='localhost';" >> mysql_settings.php
+echo "\$db='redcap';" >> mysql_settings.php
+echo "\$username='redcap';" >> mysql_settings.php 
+echo "\$password='br1ssk1t123';" >> mysql_settings.php
+echo "?>" >> mysql_settings.php
+
+#Move out settings file
+sudo mv mysql_settings.php /var/local/brisskit/redcap/www/redcap/
+
+#Make temp and edocs writable
+chmod -R a+w /var/local/brisskit/redcap/www/redcap/temp
+chmod -R a+w /var/local/brisskit/redcap/www/redcap/edocs
+
+# Have not done this section. Don't know what to make of them...
+#Move the install files
+mkdir ${ROOT_DIR}redcap/www_deleted/${VERSION_NUMBER}
+#mv ${ROOT_DIR}redcap/www/redcap/install.php ${ROOT_DIR}redcap/www_deleted/${VERSION_NUMBER}/
+#mv ${ROOT_DIR}redcap/www/redcap/redcap_v${VERSION_NUMBER}/Test/index.php ${ROOT_DIR}redcap/www_deleted/${VERSION_NUMBER}/index.php
+
+echo "Finished installing REDCap!"
+echo "Now go to URL/redcap/install.php and finish off the customisation"
+# http://brisskit-redcap.cloudapp.net/redcap/install.php
+
