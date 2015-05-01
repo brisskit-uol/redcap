@@ -8,12 +8,10 @@
 # (1) Sets up an ubuntu lts headless server to run redcap.
 # (2) Check script for mysql user names and passwords
 # (3) Assumes mysql has already been installed locally.
-# (4) Query: Can this still be run several times as it doesn't try
-#     to reinstall stuff?
-# (5) Uses standard install directory /var/local/brisskit/redcap
+# (4) Uses standard install directory /var/local/brisskit/redcap
 #
 # TODO:
-# (a) Rigourous check that mysql set up ok - maybe seed it with
+# (a) Rigorous check that mysql set up ok - maybe seed it with
 #     data when its set up and check I can read it here? 
 # (b) Add salt variable in DB file.
 # (c) Fall over at any failure
@@ -110,9 +108,31 @@ mysql --user=${MYSQL_ROOT_UN} \
 mysql --user=${MYSQL_REDCAP_UN} \
       --password=${MYSQL_RECAP_PW} \
       --host=${MYSQL_IP} \
-      --database=${MYSQL_REDCAP_DB} < redcap_${VERSION_NUMBER}.sql
+      --database=${MYSQL_REDCAP_DB} < ../sql/install.sql
+      
+# Run the SQL to build the table structure....
+mysql --user=${MYSQL_REDCAP_UN} \
+      --password=${MYSQL_RECAP_PW} \
+      --host=${MYSQL_IP} \
+      --database=${MYSQL_REDCAP_DB} < ../sql/install_data.sql
 
 echo "Database set up\n";
+
+echo "Aout to populate demo databases...
+cd ../sql
+for f in ./create_demo_db*.sql
+do
+	if [ ! $# -eq 0 ] 
+	then
+		echo "Processing file: $(basename $f)"
+		mysql --user=${MYSQL_REDCAP_UN} \
+              --password=${MYSQL_RECAP_PW} \
+              --host=${MYSQL_IP} \
+              --database=${MYSQL_REDCAP_DB} < $f
+        echo "File: $(basename $f) processed."
+	fi 
+done
+echo "Demo databases set up\n";
 
 ############################################
 # Grab REDCap source and install it
@@ -161,4 +181,3 @@ mkdir ${ROOT_DIR}redcap/www_deleted/${VERSION_NUMBER}
 
 echo "Finished installing REDCap!"
 echo "Now go to URL/redcap/install.php and finish off the customisation"
-
