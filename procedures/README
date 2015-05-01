@@ -1,0 +1,10 @@
+#===============================================================================#
+#  Command line tools for installing the Redcap web aplication                    #
+#===============================================================================#
+
+QUICK START.
+============
+
+1. Unzip this package
+2. Edit the redcap_install.sh file for suitable mysql usernames and passwords.
+3. Run the redcap_install script from the procedures bin directory.

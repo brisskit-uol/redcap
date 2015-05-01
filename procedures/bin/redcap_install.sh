@@ -6,7 +6,7 @@
 #
 # NOTES:
 # (1) Sets up an ubuntu lts headless server to run redcap.
-# (2) Check script for mysql user names and passwords
+# (2) Please check script for mysql user names and passwords
 # (3) Assumes mysql has already been installed locally.
 # (4) Uses standard install directory /var/local/brisskit/redcap
 #
@@ -110,7 +110,7 @@ mysql --user=${MYSQL_REDCAP_UN} \
       --host=${MYSQL_IP} \
       --database=${MYSQL_REDCAP_DB} < ../sql/install.sql
       
-# Run the SQL to build the table structure....
+# Run the SQL to populate the table structure....
 mysql --user=${MYSQL_REDCAP_UN} \
       --password=${MYSQL_RECAP_PW} \
       --host=${MYSQL_IP} \
@@ -118,7 +118,7 @@ mysql --user=${MYSQL_REDCAP_UN} \
 
 echo "Database set up\n";
 
-echo "Aout to populate demo databases...
+echo "About to populate demo databases...
 cd ../sql
 for f in ./create_demo_db*.sql
 do

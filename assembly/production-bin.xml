@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+  <id></id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>true</includeBaseDirectory>
+  <dependencySets/>
+  <files>
+  	<file>
+    	<source>procedures/README</source>
+    	<destName>README</destName>	
+    </file>
+  </files>
+  <fileSets> 
+    <fileSet>
+    	<!-- includes  -->
+ 		<directory>${basedir}/procedures/bin</directory> 
+ 		<outputDirectory>bin</outputDirectory>
+ 		<fileMode>0774</fileMode>
+    </fileSet>
+    <fileSet>
+    	<!-- includes  -->
+ 		<directory>${basedir}/procedures/brisskit-api</directory> 
+ 		<outputDirectory>brisskit-api</outputDirectory>
+ 		<fileMode>0774</fileMode>
+    </fileSet>
+    <fileSet>
+    	<!-- includes  -->
+ 		<directory>${basedir}/procedures/config</directory> 
+ 		<outputDirectory>config</outputDirectory>
+ 		<fileMode>0774</fileMode>
+    </fileSet>
+    <fileSet>
+    	<!-- includes  -->
+ 		<directory>${basedir}/procedures/sql</directory> 
+ 		<outputDirectory>sql</outputDirectory>
+ 		<fileMode>0774</fileMode>
+    </fileSet>
+    <fileSet>
+    	<!-- includes  -->
+ 		<directory>${basedir}/procedures/zipped-source</directory> 
+ 		<outputDirectory>zipped-source</outputDirectory>
+ 		<fileMode>0774</fileMode>
+    </fileSet>
+  </fileSets>
+</assembly>
