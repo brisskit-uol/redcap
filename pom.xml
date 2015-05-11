@@ -4,7 +4,7 @@
 	<groupId>org.brisskit.install</groupId>
 	<artifactId>redcap-6.4.4-install-procedures</artifactId>
 	<packaging>pom</packaging>
-	<name>Onyx Install Procedures</name>
+	<name>Recap Install Procedures</name>
 	<version>1.0-RC1</version>
 	<description>This project covers procedures for installing Redcap.</description>
 
