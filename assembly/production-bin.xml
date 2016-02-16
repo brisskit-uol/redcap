@@ -11,6 +11,10 @@
     	<source>procedures/README</source>
     	<destName>README</destName>	
     </file>
+    <file>
+    	<source>licence.doc</source>
+    	<destName>licence.doc</destName>	
+    </file>
   </files>
   <fileSets> 
     <fileSet>

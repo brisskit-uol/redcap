@@ -16,23 +16,18 @@
 	<distributionManagement>
 		<repository>
 			<id>nexus</id>
-			<name>Brisskit Maven Snapshots</name>
-			<url>scpexe://localhost:2222/local/brisskit/sonatype-work/nexus/storage/releases</url>
+			<name>Brisskit Maven Releases</name>
+			<url>https://maven.brisskit.le.ac.uk:443/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus</id>
-			<name>Brisskit Maven Releases</name>
-			<url>scpexe://localhost:2222/local/brisskit/sonatype-work/nexus/storage/snapshots</url>
+			<name>Brisskit Maven Snapshots</name>
+			<url>https://maven.brisskit.le.ac.uk:443/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
    
 	
 	<properties>
-		<!--+
-		    | The default environment is production. Note: there is a development profile to overwrite these settings.
-		    | The defaults are this way around because the development profile has facilities to drop all sql artifacts.
-		    | This forces a user to request these explicitly. The profile name is also included in the version number. 
-		    + -->
 		<environment.type>production</environment.type>
 	</properties>
 
